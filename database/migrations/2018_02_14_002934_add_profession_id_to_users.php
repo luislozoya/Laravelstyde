@@ -21,7 +21,7 @@ class AddProfessionIdToUsers extends Migration
             $table->foreign('profession_id')->references('id')->on('professions');
         });
     }
-
+//adding 2
     /**
      * Reverse the migrations.
      *
