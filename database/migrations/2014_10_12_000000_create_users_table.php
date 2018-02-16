@@ -15,6 +15,10 @@ class CreateUsersTable extends Migration
     {
         Schema::create('users', function (Blueprint $table) {
             $table->increments('id');
+
+            $table->unsignedInteger('profession_id');
+            $table->foreign('profession_id')->references('id2')->on('professions2sdfs');
+
             $table->string('name');
             $table->string('email', 250)->unique();
             //$table->string('profession', 50)->nullable();
