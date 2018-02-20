@@ -17,7 +17,7 @@ class CreateUsersTable extends Migration
             $table->increments('id');
 
             $table->unsignedInteger('profession_id');
-            $table->foreign('profession_id')->references('id2')->on('professions2sdfs');
+            $table->foreign('profession_id')->references('id')->on('professions');
 
             $table->string('name');
             $table->string('email', 250)->unique();
