@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Database\Seeder;
-
+use App\Models\Profession;
 //se importo
 use Illuminate\Support\Facades\DB;
 
@@ -27,8 +27,9 @@ class ProfessionSeeder extends Seeder
         ]);
         */
 
+        /***CON CONSTRUCTOR DE CONSULTAS***/
         //\Illuminate\Support\Facades\DB::;
-        DB::table('professions')->insert([
+        /*DB::table('professions')->insert([
         'title' => 'Desarrollador back-end',
         ]);
 
@@ -39,5 +40,21 @@ class ProfessionSeeder extends Seeder
         DB::table('professions')->insert([
             'title' => 'Diseñador web',
         ]);
+        */
+
+
+        /***USANDO UN NIVEL MAS ALTO CON MODELOS DE LARAVEL***/
+        \App\Models\Profession::create([
+            'title' => 'Desarrollador back-end',
+        ]);
+
+        \App\Models\Profession::create([
+            'title' => 'Desarrollador front-end',
+        ]);
+
+        \App\Models\Profession::create([
+            'title' => 'Diseñador web',
+        ]);
+
     }
 }
