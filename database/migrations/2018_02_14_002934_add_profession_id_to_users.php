@@ -17,7 +17,7 @@ class AddProfessionIdToUsers extends Migration
             $table->dropColumn('profession');
             //unsigned integer es un entero sin signo, es decir un entero positivo
             //$table->unsignedInteger('profession_id')->after('id')->references('id')->on('professions');
-            $table->unsignedInteger('profession_id')->after('id');
+            $table->unsignedInteger('profession_id')->after('id')->nullable();
             $table->foreign('profession_id')->references('id')->on('professions');
         });
     }
