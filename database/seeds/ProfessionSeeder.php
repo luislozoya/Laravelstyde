@@ -16,7 +16,7 @@ class ProfessionSeeder extends Seeder
     {
         //\Illuminate\Support\Facades\DB::;
         DB::table('professions')->insert([
-           'name' => 'Desarrollador back-end',
+           'title' => 'Desarrollador back-end',
         ]);
     }
 }
