@@ -19,6 +19,8 @@ class CreateUsersTable extends Migration
             $table->string('email', 250)->unique();
             //$table->string('profession', 50)->nullable();
             $table->string('password');
+            //Un intento malicioso puede tratar de generar un usuario admin pasando varios valores intentando atinarle al admin, pero con la siguiente linea se ignoraran todas esas peticiones
+            $table->boolean('is_admin')->default(false);
             $table->rememberToken();
             $table->timestamps();
         });

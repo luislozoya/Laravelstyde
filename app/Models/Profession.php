@@ -11,4 +11,13 @@ class Profession extends Model
 
     //para indicar que no se quieren utilizar los siguientes campos en la base de datos
     public $timestamps = false;
+
+    //ver tuto para aclarar eloquent llama algo de un fillable posiblemente
+    protected $fillable = ['title'];
+
+    /*** Una profesion tiene muchos usuarios***/
+    //se utiliza has many
+    public function  users(){
+        return $this-> hasMany(User::class);
+    }
 }

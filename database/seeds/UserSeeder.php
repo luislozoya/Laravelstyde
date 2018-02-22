@@ -80,5 +80,15 @@ class UserSeeder extends Seeder
             'profession_id' => $professionId,
         ]);
 
+        //Crear usuarios de forma aleatorea
+        factory(User::class)->create([
+            'profession_id' => $professionId
+        ]);
+
+        factory(User::class)->create();
+
+        //agregar 48 usuarios
+        factory(User::class, 48)->create();
+
     }
 }

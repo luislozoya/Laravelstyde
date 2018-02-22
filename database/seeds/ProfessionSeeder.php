@@ -52,9 +52,12 @@ class ProfessionSeeder extends Seeder
             'title' => 'Desarrollador front-end',
         ]);
 
-        \App\Models\Profession::create([
+        Profession::create([
             'title' => 'Diseñador web',
         ]);
+
+        //agregar 17 profesiones segunda forma
+        factory(Profession::class)->times(17)->create();
 
     }
 }
