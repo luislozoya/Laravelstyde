@@ -2,29 +2,41 @@
 
 namespace App\Http\Controllers;
 
+use App\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class UserController extends Controller
 {
     public function index()
     {
         //return 'Usuarios';
-
-        if (request()->has('empty')) {
+        /***FORMA DIRECTA***/
+        /*if (request()->has('empty')) {
             $users = [];
         } else  {
             //arreglo estatico
+
             $users = [
                 'Joel', 'Ellie',
                 'Tess',
                 'Tommy',
                 'Bill',
 
-                /*** suponiendo que estos usuarios los cargamos de bases de datos y que permitimos a cualquier usuario
-                registrarse en nuestra aplicación, este podria inyectar codigo malicioso de java script***/
+                // suponiendo que estos usuarios los cargamos de bases de datos y que permitimos a cualquier usuario
+                //registrarse en nuestra aplicación, este podria inyectar codigo malicioso de java script
                 '<script>alert("Clicker")</script>'
             ];
-        }
+
+        }*/
+        /***FORMA DIRECTA***/
+
+        /***FORMA BD***/
+
+        $users = User::all();
+        //$users = DB::table('users')->get();
+
+        //dd($users);
 
         $title = 'Listado de usuarios';
 
@@ -36,6 +48,11 @@ class UserController extends Controller
         //si las variables que se mandan se llaman igual a las variables declaradas en esta seccion se puede usar compact
         //nueva forma de pasar a vista
         return view('users.index', compact('title', 'users'));
+
+        //otra forma antigua de llamar a la vista
+        //return view ('users.index')
+        //   ->with('users', User::all())
+        //   ->with('title', 'Listado de Usuarios');
 
         //antiguas formas de pasar a vista
         /*

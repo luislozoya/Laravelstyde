@@ -7,6 +7,10 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class User extends Authenticatable
 {
+    //el modelo user esta enlazado con la tabla users pero se puede personalizar
+    //hacia una tabla
+    //protected  $table = 'users';
+
     use Notifiable;
 
     /**
