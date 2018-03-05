@@ -3,19 +3,22 @@
 namespace Tests\Feature;
 
 use App\User;
+use Illuminate\Support\Facades\DB;
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class userModuleTest extends TestCase
 {
+    use RefreshDatabase;
+
     /**@test */
-    function it_shows_the_users_list()
+    function test_it_shows_the_users_list()
     {
 
         factory(User::class)->create([
             'name' => 'Joel',
-            'wbesite' => 'thelastofus.com',
+            //'website' => 'thelastofus.com',
         ]);
 
         factory(User::class)->create([
@@ -30,14 +33,16 @@ class userModuleTest extends TestCase
         ->assertSee('Ellie');
     }
 
-    function It_shows_a_default_message_if_the_user_list_is_empty()
+    function test_It_shows_a_default_message_if_the_user_list_is_empty()
     {
+        //ya no es necesario RefreshDatabase limpia para cada prueba
         //DB::table('users')->truncate();
 
         //$this->assertTrue(true);
-        $this->get('/usuarios?empty')
+        //$this->get('/usuarios?empty')
+        $this->get('/usuarios')
             ->assertStatus(200)
-            ->assertSee('No hay usudsfdsarios registrados.');
+            ->assertSee('No hay usuarios registrados.');
     }
 
     function test_it_loads_the_users_details_page()
