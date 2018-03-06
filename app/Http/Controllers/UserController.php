@@ -81,11 +81,17 @@ class UserController extends Controller
 
     public function show($id)
     {
-        //ANTIGUA
-        //return "Mostrando detalle del usuario: {$id}";
-       // $data = request('data');
+       //ANTIGUA
+       //return "Mostrando detalle del usuario: {$id}";
+       //$data = request('data');
 
-        $users = [
+        $user = User::find($id);
+
+        return view('users.show', compact('user'));
+        //$data = request('data');
+
+       //CON EJERCICIO REALIZADO
+        /*$users = [
             'Joel', 'Ellie',
             'Tess',
             'Tommy',
@@ -105,6 +111,7 @@ class UserController extends Controller
 
             }
         }
+        */
 
     }
 
