@@ -85,7 +85,14 @@ class UserController extends Controller
        //return "Mostrando detalle del usuario: {$id}";
        //$data = request('data');
 
-        $user = User::find($id);
+        $user = User::findOrFail($id);
+
+        //antigua manera si no se usa find or fail
+        /*
+        if($user == null) {
+            return response()->view('errors.404', [], 404);
+        }
+        */
 
         return view('users.show', compact('user'));
         //$data = request('data');
