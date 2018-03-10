@@ -17,23 +17,37 @@
 });
 */
 
-Route::get('/usuarios', 'UserController@index')
-    ->name('users');
-
-
 Route::get('/', function(){
     return 'Home';
 });
 
-Route::get('/usuarios/{id}', 'UserController@show')
-    ->where('id', "[0-9]+")
-    ->where('id', "^((?!nuevo).)*$")
+Route::get('/usuarios', 'UserController@index')
+    ->name('users.index');
+//antigua
+//->name('users');
+
+
+Route::get('/usuarios/{user}', 'UserController@show')
+//antigua forma antes de llamar de una manera mas directa
+//Route::get('/usuarios/{id}', 'UserController@show')
+    ->where('user', "[0-9]+")
+    //->where('user', "^((?!nuevo).)*$")
     ->name('users.show');
 ;
 
 Route::get('/usuarios/nuevo', 'UserController@create')
     ->name('users.create');
 ;
+
+//Route::post('/usuarios/crear', 'UserController@store');
+//posible tener 2 rutas con el mismo nombre una con get y otra con post
+Route::post('/usuarios', 'UserController@store');
+
+
+Route::get('/usuarios/{user}/editar', 'UserController@edit')->name('users.edit');
+
+
+Route::put('/usuarios/{user}', 'UserController@update');
 
 //Route::get('/saludo/{name}/{nickname?}', 'WelcomeUserController@index');
 

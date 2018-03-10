@@ -79,13 +79,15 @@ class UserController extends Controller
 
     }
 
-    public function show($id)
+    //public function show($id)
+    public function show(User $user)
     {
        //ANTIGUA
        //return "Mostrando detalle del usuario: {$id}";
        //$data = request('data');
 
-        $user = User::findOrFail($id);
+        //antigua antes de cambio de show($id)
+        //$user = User::findOrFail($id);
 
         //antigua manera si no se usa find or fail
         /*
@@ -124,6 +126,81 @@ class UserController extends Controller
 
     public function create()
     {
-        return 'Crear nuevo usuario';
+        return view('users.create');
     }
+
+    public function store()
+    {
+
+        //forma manual para que no se borre el correo
+        //return redirect('usuarios/nuevo')->withInput();
+
+        $data = request()->validate([
+            'name' => 'required',
+            //'email' => 'required|email|unique',
+            'email' => ['required', 'email', 'unique:users,email'],
+            'password' => 'required',
+        ],[
+            //ESTO ES PARA TRADUCIR LOS MSG QUE NO SEAN LOS DE LARAVEL
+            'name.required' => 'El campo nombre es obligatorio'
+        ]);
+
+        //Antigua forma era engorroso para cada validación
+        /*
+        $data = request()->all();
+
+
+        if(empty($data['name'])){
+            return redirect('usuarios/nuevo')->withErrors([
+                'name' => 'El campo nombre es obligatorio'
+            ]);
+        }
+
+
+        if(empty($data['password'])){
+            return redirect('usuarios/nuevo')->withErrors([
+                'name' => 'El campo nombre es obligatorio'
+            ]);
+        }
+        */
+
+        User::create([
+            'name' => $data['name'],
+            'email' => $data['email'],
+            'password' => bcrypt($data['password'])
+        ]);
+
+        //return 'Procesando informacion....';
+        //return redirect('usuarios');
+        return redirect()->route('users.index');
+    }
+
+    public function edit(User $user)
+    {
+        return view('users.edit', ['user' => $user]);
+    }
+
+    public function update(User $user)
+    {
+        $data = request()->validate([
+            'name' => 'required',
+            'email' => 'required|email',
+            //'email' => 'required|email|unique:users,email',
+            'password' => '',
+        ]);
+
+        if ($data['password'] != null){
+            $data['password'] = bcrypt($data['password']);
+        } else{
+            unset($data['password']);
+        }
+
+        $user->update($data);
+
+        //return redirect("/usuarios/{$user->id}");
+        return redirect()->route('users.show', ['user' => $user]);
+    }
+
+
+
 }

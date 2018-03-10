@@ -30,6 +30,11 @@
         <a href="{{action('UserController@index')}}">Regresar a url usuarios (index)</a>
     </p>
 
+    {{--agregando en rutas web.php ->name('users.index');--}}
+    <p>
+        <a href="{{ route('users.index')}}">Regresar al listado de usuarios *posible mejor</a>
+    </p>
+
 
     <hr>
 
