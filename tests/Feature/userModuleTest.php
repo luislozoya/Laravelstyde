@@ -282,8 +282,12 @@ class userModuleTest extends TestCase
 
     function test_the_email_must_be_unique_when_updating_the_user()
     {
-        self::markTestIncomplete();
-        return;
+        //self::markTestIncomplete();
+        //return;
+
+        factory(User::class)->create([
+            'email' => 'existing-email@example.com'
+        ]);
 
         $user = factory(User::class)->create([
             'email' => 'duilio@styde.net'
@@ -293,14 +297,16 @@ class userModuleTest extends TestCase
         $this->from("usuarios/{$user->id}/editar")
             ->put("/usuarios/{$user->id}",[
                 'name' => 'Duilio',
-                'email' => 'duilio@styde.net',
+                //'email' => 'duilio@styde.net',
+                'email' => 'existing-email@example.com',
                 'password' => '123456',
             ])
-            ->assertRedirect('usuarios/nuevo')
+            //->assertRedirect('usuarios/nuevo')
+            ->assertRedirect("usuarios/{$user->id}/editar")
             ->assertSessionHasErrors(['email'])
         ;
 
-        $this->assertEquals(1, User::count());
+        //$this->assertEquals(1, User::count());
 
     }
 
@@ -327,9 +333,34 @@ class userModuleTest extends TestCase
     }
     */
 
+    function test_the_users_email_can_stay_the_same_when_updating_the_user()
+    {
+        //$this->withoutExceptionHandling();
+        $user = factory(User::class)->create([
+            'email' => 'duilio@styde.net'
+        ]);
+
+
+        $this->from("usuarios/{$user->id}/editar")
+            ->put("/usuarios/{$user->id}",[
+                'name' => 'Duilio Palacios',
+                'email' => 'duilio@styde.net',
+                'password' => '123456',
+            ])
+            ->assertRedirect("usuarios/{$user->id}") //(users.show)
+        ;
+
+        $this->assertDatabaseHas('users', [
+            'name' => 'Duilio Palacios',
+            'email' => 'duilio@styde.net',
+        ]);
+
+    }
+
+
     function test_the_password_is_optional_when_updating_the_user()
     {
-        $this->withoutExceptionHandling();
+        //$this->withoutExceptionHandling();
         $oldPassword = 'CLAVE_ANTERIOR';
         $user = factory(User::class)->create([
             'password' => bcrypt($oldPassword)
