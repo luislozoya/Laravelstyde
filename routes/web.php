@@ -55,7 +55,7 @@ Route::put('/usuarios/{user}', 'UserController@update');
  * es decir solo un metodo publico se usa __invoke***/
 Route::get('/saludo/{name}/{nickname?}', 'WelcomeUserController');
 
-
+Route::delete('/usuarios/{user}','UserController@destroy')->name('users.destroy');
 
 /***Comentados para ser cargados en los controladores***/
 /*
